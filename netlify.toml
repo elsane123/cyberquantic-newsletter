@@ -1,0 +1,15 @@
+[build]
+  publish = "public"
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/blog/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/newsletters/*"
+  to = "/newsletters/:splat"
+  status = 200
+
+[functions]
+  directory = "netlify/functions"

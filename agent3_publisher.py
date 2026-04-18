@@ -75,14 +75,19 @@ def build_blog_post(draft: NewsletterDraft):
 def build_archive_index():
     """Rebuild public/index.html with all newsletters and blog posts."""
     newsletters_dir = PUBLIC_DIR / 'newsletters'
-    nl_files = sorted(newsletters_dir.glob('*.html'), reverse=True) if newsletters_dir.exists() else []
-    nl_files = [f for f in nl_files if f.name != 'latest.html']
+    manifest_path = newsletters_dir / 'manifest.json'
+    manifest = json.loads(manifest_path.read_text(encoding='utf-8')) if manifest_path.exists() else []
     blog_files = sorted(BLOG_DIR.glob('*.html'), reverse=True) if BLOG_DIR.exists() else []
 
-    nl_items = '\n'.join([
-        f'<li><a href="/newsletters/{f.name}">{f.stem}</a></li>'
-        for f in nl_files[:20]
-    ])
+    nl_items = ''
+    for m in manifest[:20]:
+        date_fmt = m['date_iso']
+        nl_items += f"""
+        <li style="padding:16px 0; border-bottom:1px solid #e2e8f0; display:flex; flex-direction:column; gap:4px;">
+            <div style="font-size:0.85em; color:#64748b; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">{date_fmt}</div>
+            <a href="/newsletters/{m['id']}.html" style="font-weight:700; font-size:1.15em; color:#4F46E5; display:block; line-height:1.3; text-decoration:none;">{m.get('subject', 'Édition du ' + date_fmt)}</a>
+            <p style="font-size:0.95em; color:#475569; line-height:1.5;">{m.get('preheader', '')}</p>
+        </li>"""
     blog_items = '\n'.join([
         f'<li><a href="/blog/{f.name}">{f.stem[9:].replace("-", " ").title()}</a></li>'
         for f in blog_files[:20]

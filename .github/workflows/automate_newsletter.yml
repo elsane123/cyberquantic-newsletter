@@ -3,7 +3,7 @@ name: CyberQuantic Weekly Automation
 on:
   schedule:
     - cron: '0 8 * * 1'  # Tous les lundis à 08:00 UTC
-  workflow_dispatch:      # Permet de lancer manuellement depuis l'interface GitHub
+  workflow_dispatch:      # Permet de lancer manuellement depuis l'interface
 
 jobs:
   publish:
@@ -12,7 +12,6 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          # Nécessaire pour pouvoir faire un push du state.json ensuite
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Python
@@ -33,10 +32,10 @@ jobs:
           NETLIFY_SITE_ID_NEWSLETTER: "8f5c0ead-885f-44a6-a4b9-f98279a963d6"
         run: python main.py send
 
-      - name: Commit and Push state.json (Sauvegarde de l'historique)
+      - name: Commit and Push state.json
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add state.json || true
-          git commit -m "chore: update rotation state [skip ci]" || echo "No changes to commit"
+          git commit -m "chore: update rotation state [skip ci]" || echo "No changes"
           git push

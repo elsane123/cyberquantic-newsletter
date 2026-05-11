@@ -1,17 +1,22 @@
 {
   "used_usecases": [
     "69dba70904721cba765bcf92",
-    "69dba5f304721cba765bcef2"
+    "69dba5f304721cba765bcef2",
+    "666fe1506a099552995a473a",
+    "69dc18dc04721cba7674a749"
   ],
   "used_companies": [
-    "69dc135a04721cba766efdf6"
+    "69dc135a04721cba766efdf6",
+    "66756420b5190c688a1980c5"
   ],
   "used_apis": [
-    "66756420b5190c688a198210"
+    "66756420b5190c688a198210",
+    "66756420b5190c688a198199"
   ],
   "used_prompts": [
-    "69dbd96e04721cba765c5284"
+    "69dbd96e04721cba765c5284",
+    "69dbd95804721cba765c515e"
   ],
-  "newsletter_count": 1,
+  "newsletter_count": 2,
   "blog_count": 0
 }
